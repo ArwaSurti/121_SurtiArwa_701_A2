@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Employee</title>
+</head>
+<body>
+
+  <h2 style="text-align: center;">Edit Employee - <%= employee.name %></h2>
+
+  <% if (error) { %>
+    <p style="color: red; text-align: center;"><%= error %></p>
+  <% } %>
+
+  <form action="/employees/<%= employee._id %>?_method=PUT" method="POST">
+    <table border="1" cellpadding="8" cellspacing="0">
+      <tr>
+        <td>Full Name *</td>
+        <td><input type="text" name="name" value="<%= employee.name %>" required></td>
+      </tr>
+      <tr>
+        <td>Email Address *</td>
+        <td><input type="email" name="email" value="<%= employee.email %>" required></td>
+      </tr>
+      <tr>
+        <td>Department *</td>
+        <td>
+          <select name="department" required>
+            <option value="">Select Department</option>
+            <option value="IT" <%= employee.department === 'IT' ? 'selected' : '' %>>IT</option>
+            <option value="HR" <%= employee.department === 'HR' ? 'selected' : '' %>>HR</option>
+            <option value="Finance" <%= employee.department === 'Finance' ? 'selected' : '' %>>Finance</option>
+            <option value="Marketing" <%= employee.department === 'Marketing' ? 'selected' : '' %>>Marketing</option>
+            <option value="Operations" <%= employee.department === 'Operations' ? 'selected' : '' %>>Operations</option>
+            <option value="Sales" <%= employee.department === 'Sales' ? 'selected' : '' %>>Sales</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Position *</td>
+        <td><input type="text" name="position" value="<%= employee.position %>" required></td>
+      </tr>
+      <tr>
+        <td>Base Salary *</td>
+        <td><input type="number" id="baseSalary" name="baseSalary" min="0" step="0.01" value="<%= employee.baseSalary %>" required></td>
+      </tr>
+      <tr>
+        <td>Allowances </td>
+        <td><input type="number" id="allowances" name="allowances" min="0" step="0.01" value="<%= employee.allowances %>"></td>
+      </tr>
+      <tr>
+        <td>Deductions (₹)</td>
+        <td><input type="number" id="deductions" name="deductions" min="0" step="0.01" value="<%= employee.deductions %>"></td>
+      </tr>
+      <tr>
+        <td>Employee ID</td>
+        <td><b><%= employee.empId %></b> (Cannot be changed)</td>
+      </tr>
+      <tr>
+        <td colspan="2" >
+          <button type="submit">Update Employee</button>
+          <a href="/employees/<%= employee._id %>">Back to Details</a>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <!-- <h3 style="text-align: center;">Salary Calculator</h3>
+  <table border="1" cellpadding="8" cellspacing="0" align="center">
+    <tr>
+      <td>Base Salary:</td>
+      <td id="displayBaseSalary">₹<%= employee.baseSalary.toLocaleString() %></td>
+    </tr>
+    <tr>
+      <td>Allowances:</td>
+      <td id="displayAllowances">+₹<%= employee.allowances.toLocaleString() %></td>
+    </tr>
+    <tr>
+      <td>Deductions:</td>
+      <td id="displayDeductions">-₹<%= employee.deductions.toLocaleString() %></td>
+    </tr>
+    <tr>
+      <td><b>Total Salary:</b></td>
+      <td id="displayTotalSalary"><b>₹<%= employee.totalSalary.toLocaleString() %></b></td>
+    </tr>
+  </table> -->
+
+  <!-- <script>
+    function updateSalaryCalculator() {
+      const baseSalary = parseFloat(document.getElementById('baseSalary').value) || 0;
+      const allowances = parseFloat(document.getElementById('allowances').value) || 0;
+      const deductions = parseFloat(document.getElementById('deductions').value) || 0;
+      const totalSalary = baseSalary + allowances - deductions;
+
+      document.getElementById('displayBaseSalary').textContent = '₹' + baseSalary.toLocaleString();
+      document.getElementById('displayAllowances').textContent = '+₹' + allowances.toLocaleString();
+      document.getElementById('displayDeductions').textContent = '-₹' + deductions.toLocaleString();
+      document.getElementById('displayTotalSalary').textContent = '₹' + totalSalary.toLocaleString();
+    }
+
+    document.getElementById('baseSalary').addEventListener('input', updateSalaryCalculator);
+    document.getElementById('allowances').addEventListener('input', updateSalaryCalculator);
+    document.getElementById('deductions').addEventListener('input', updateSalaryCalculator);
+  </script> -->
+
+</body>
+</html>

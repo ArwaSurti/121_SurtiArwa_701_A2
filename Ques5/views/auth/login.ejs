@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Portal - Login</title>
+</head>
+<body bgcolor="#f0f0f0">
+    <center>
+        <table border="0" cellpadding="20" cellspacing="0" width="400" bgcolor="white" style="margin-top: 100px;">
+            <tr>
+                <td align="center">
+                    <h2>Employee Portal</h2>
+                    <h3>Login to Your Account</h3>
+                    
+                    <% if (error) { %>
+                    <table border="1" cellpadding="10" bgcolor="#ffcccc" width="100%">
+                        <tr>
+                            <td align="center">
+                                <font color="red"><b><%= error %></b></font>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <% } %>
+
+                    <form action="/auth/login" method="POST">
+                        <table border="0" cellpadding="5" cellspacing="0" width="100%">
+                            <tr>
+                                <td align="right"><b>Employee ID:</b></td>
+                                <td>
+                                    <input type="text" name="empId" size="20" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right"><b>Full Name:</b></td>
+                                <td>
+                                    <input type="text" name="name" size="20" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <br>
+                                    <input type="submit" value="Login" style="padding: 10px 20px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    
+                    <hr>
+                    <small>Enter your Employee ID and Full Name to access your account</small>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>

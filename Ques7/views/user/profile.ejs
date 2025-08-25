@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Shopping Cart</title>
+</head>
+<body>
+    <h1>My Profile</h1>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td style="padding: 10px;">
+                <a href="/user/dashboard">← Back to Dashboard</a> | 
+                <a href="/cart">My Cart</a> | 
+                <a href="/user/orders">Order History</a> | 
+                <form action="/auth/logout" method="POST" style="display: inline;">
+                    <button type="submit">Logout</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+    <% if (message) { %>
+        <table border="1" style="margin: 20px 0;">
+            <tr>
+                <td style="padding: 10px; color: green; text-align: center;">
+                    <%= message %>
+                </td>
+            </tr>
+        </table>
+    <% } %>
+    
+    <form action="/user/profile" method="POST">
+        <table border="1" style="margin: 20px 0; width: 100%;">
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">
+                    Personal Information
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; width: 200px;"><label for="name">Full Name:</label></td>
+                <td style="padding: 10px;">
+                    <input type="text" id="name" name="name" value="<%= user.name %>" required style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;"><label for="email">Email:</label></td>
+                <td style="padding: 10px;">
+                    <input type="email" id="email" name="email" value="<%= user.email %>" required style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;"><label for="phone">Phone:</label></td>
+                <td style="padding: 10px;">
+                    <input type="tel" id="phone" name="phone" value="<%= user.phone || '' %>" style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+        </table>
+        
+        <table border="1" style="margin: 20px 0; width: 100%;">
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">
+                    Address Information
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; width: 200px;"><label for="street">Street Address:</label></td>
+                <td style="padding: 10px;">
+                    <input type="text" id="street" name="street" value="<%= user.address ? user.address.street || '' : '' %>" style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;"><label for="city">City:</label></td>
+                <td style="padding: 10px;">
+                    <input type="text" id="city" name="city" value="<%= user.address ? user.address.city || '' : '' %>" style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;"><label for="state">State:</label></td>
+                <td style="padding: 10px;">
+                    <input type="text" id="state" name="state" value="<%= user.address ? user.address.state || '' : '' %>" style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;"><label for="zipCode">ZIP Code:</label></td>
+                <td style="padding: 10px;">
+                    <input type="text" id="zipCode" name="zipCode" value="<%= user.address ? user.address.zipCode || '' : '' %>" style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;"><label for="country">Country:</label></td>
+                <td style="padding: 10px;">
+                    <input type="text" id="country" name="country" value="<%= user.address ? user.address.country || '' : '' %>" style="width: 300px; padding: 5px;">
+                </td>
+            </tr>
+        </table>
+        
+        <table border="1" style="margin: 20px 0;">
+            <tr>
+                <td style="padding: 20px; text-align: center;">
+                    <button type="submit" style="padding: 10px 20px;">Update Profile</button>
+                    <a href="/user/dashboard" style="margin-left: 20px;">Cancel</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

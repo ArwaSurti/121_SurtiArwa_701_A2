@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+</head>
+<body>
+
+  <h2 style="text-align:center;">ERP Admin Login</h2>
+
+  <!-- Error message -->
+  <% if (typeof error !== "undefined" && error) { %>
+    <p style="color:red; text-align:center;"><%= error %></p>
+  <% } %>
+
+  <!-- Login form -->
+  <form action="/auth/login" method="POST" style="width:300px; margin:0 auto;">
+    <table border="0" cellpadding="5" cellspacing="0" align="center">
+      <tr>
+        <td><label for="username">Username</label></td>
+        <td><input type="text" id="username" name="username" required></td>
+      </tr>
+      <tr>
+        <td><label for="password">Password</label></td>
+        <td><input type="password" id="password" name="password" required></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+          <button type="submit">Sign In</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <p style="text-align:center; font-size:small; color:gray;">
+    Default credentials: <b>admin / admin123</b>
+  </p>
+
+</body>
+</html>

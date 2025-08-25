@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Shopping Cart</title>
+</head>
+<body>
+    <h1>Oops! Something went wrong</h1>
+    
+    <table border="1" style="margin: 20px 0; width: 100%;">
+        <tr>
+            <td style="padding: 20px; text-align: center;">
+                <h2>Error <%= status || 500 %></h2>
+                <p><%= message || 'An unexpected error occurred' %></p>
+            </td>
+        </tr>
+    </table>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td style="padding: 15px; text-align: center;">
+                <% if (locals.user) { %>
+                    <% if (user.role === 'admin') { %>
+                        <a href="/admin/dashboard">← Back to Admin Dashboard</a>
+                    <% } else { %>
+                        <a href="/user/dashboard">← Back to Dashboard</a>
+                    <% } %>
+                <% } else { %>
+                    <a href="/auth/login">← Back to Login</a>
+                <% } %>
+            </td>
+        </tr>
+    </table>
+    
+    <% if (process.env.NODE_ENV === 'development' && error) { %>
+    <table border="1" style="margin: 20px 0; width: 100%;">
+        <tr>
+            <td style="padding: 10px; background-color: #f8f8f8;">
+                <h3>Debug Information (Development Mode)</h3>
+                <pre><%= error.stack %></pre>
+            </td>
+        </tr>
+    </table>
+    <% } %>
+</body>
+</html>

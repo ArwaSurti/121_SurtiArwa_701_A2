@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Shopping Cart</title>
+</head>
+<body>
+    <h1>Search Results for "<%= query %>"</h1>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td style="padding: 10px;">
+                <a href="/user/dashboard">← Back to Dashboard</a> | 
+                <a href="/cart">My Cart</a> | 
+                <form action="/auth/logout" method="POST" style="display: inline;">
+                    <button type="submit">Logout</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td style="padding: 15px;">
+                <form action="/user/search" method="GET">
+                    <label for="q">Search Products:</label>
+                    <input type="text" id="q" name="q" value="<%= query %>" placeholder="Enter product name..." style="width: 300px; padding: 5px; margin: 0 10px;">
+                    <button type="submit">Search</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+    <table border="1" style="margin: 20px 0; width: 100%;">
+        <tr style="background-color: #f0f0f0;">
+            <th style="padding: 10px;">Product Name</th>
+            <th style="padding: 10px;">Category</th>
+            <th style="padding: 10px;">Description</th>
+            <th style="padding: 10px;">Price</th>
+            <th style="padding: 10px;">Stock</th>
+            <th style="padding: 10px;">Action</th>
+        </tr>
+        <% if (products.length === 0) { %>
+        <tr>
+            <td colspan="6" style="padding: 20px; text-align: center;">
+                No products found matching "<%= query %>". <a href="/user/dashboard">Browse all products</a>
+            </td>
+        </tr>
+        <% } else { %>
+            <% products.forEach(product => { %>
+            <tr>
+                <td style="padding: 10px;">
+                    <a href="/user/products/<%= product._id %>"><%= product.name %></a>
+                </td>
+                <td style="padding: 10px;"><%= product.category.name %></td>
+                <td style="padding: 10px;"><%= product.description.substring(0, 80) %>...</td>
+                <td style="padding: 10px;">$<%= product.price.toFixed(2) %></td>
+                <td style="padding: 10px;">
+                    <%= product.stock > 0 ? product.stock + ' available' : 'Out of stock' %>
+                </td>
+                <td style="padding: 10px;">
+                    <% if (product.stock > 0) { %>
+                        <form action="/cart/add" method="POST" style="display: inline;">
+                            <input type="hidden" name="productId" value="<%= product._id %>">
+                            <input type="number" name="quantity" value="1" min="1" max="<%= product.stock %>" style="width: 50px;">
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    <% } else { %>
+                        <span style="color: #999;">Out of Stock</span>
+                    <% } %>
+                </td>
+            </tr>
+            <% }); %>
+        <% } %>
+    </table>
+    
+    <% if (products.length > 0) { %>
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td style="padding: 10px; text-align: center;">
+                Found <%= products.length %> product<%= products.length !== 1 ? 's' : '' %> matching your search.
+            </td>
+        </tr>
+    </table>
+    <% } %>
+</body>
+</html>

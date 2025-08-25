@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Shopping Cart</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td style="padding: 10px;">
+                Welcome, <%= user.name %>! | 
+                <a href="/admin/categories">Manage Categories</a> | 
+                <a href="/admin/products">Manage Products</a> | 
+                <a href="/admin/orders">View Orders</a> | 
+                <form action="/auth/logout" method="POST" style="display: inline;">
+                    <button type="submit">Logout</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">
+                System Statistics
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; width: 200px;"><strong>Total Users:</strong></td>
+            <td style="padding: 10px;"><%= stats.totalUsers %></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><strong>Total Products:</strong></td>
+            <td style="padding: 10px;"><%= stats.totalProducts %></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><strong>Total Categories:</strong></td>
+            <td style="padding: 10px;"><%= stats.totalCategories %></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><strong>Total Orders:</strong></td>
+            <td style="padding: 10px;"><%= stats.totalOrders %></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><strong>Pending Orders:</strong></td>
+            <td style="padding: 10px;"><%= stats.pendingOrders %></td>
+        </tr>
+    </table>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td colspan="3" style="text-align: center; font-weight: bold; padding: 10px;">
+                Quick Actions
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px; text-align: center;">
+                <a href="/admin/categories/new">Add New Category</a>
+            </td>
+            <td style="padding: 15px; text-align: center;">
+                <a href="/admin/products/new">Add New Product</a>
+            </td>
+            <td style="padding: 15px; text-align: center;">
+                <a href="/admin/orders">View All Orders</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

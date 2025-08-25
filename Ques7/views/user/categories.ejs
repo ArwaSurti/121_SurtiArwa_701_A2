@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Categories - Shopping Cart</title>
+</head>
+<body>
+    <h1>Browse Categories</h1>
+    
+    <table border="1" style="margin: 20px 0;">
+        <tr>
+            <td style="padding: 10px;">
+                <a href="/user/dashboard">← Back to Dashboard</a> | 
+                <a href="/cart">My Cart</a> | 
+                <a href="/user/orders">Order History</a> | 
+                <form action="/auth/logout" method="POST" style="display: inline;">
+                    <button type="submit">Logout</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+    <table border="1" style="margin: 20px 0; width: 100%;">
+        <tr>
+            <td colspan="3" style="text-align: center; font-weight: bold; padding: 10px;">
+                Product Categories
+            </td>
+        </tr>
+        <% if (categories.length === 0) { %>
+        <tr>
+            <td colspan="3" style="padding: 20px; text-align: center;">
+                No categories available at the moment.
+            </td>
+        </tr>
+        <% } else { %>
+            <tr style="background-color: #f0f0f0;">
+                <th style="padding: 10px;">Category Name</th>
+                <th style="padding: 10px;">Description</th>
+                <th style="padding: 10px;">Type</th>
+            </tr>
+            <% categories.forEach(category => { %>
+            <tr>
+                <td style="padding: 15px;">
+                    <strong><a href="/user/categories/<%= category._id %>"><%= category.name %></a></strong>
+                </td>
+                <td style="padding: 15px;">
+                    <%= category.description || 'Browse products in this category' %>
+                </td>
+                <td style="padding: 15px;">
+                    <%= category.parentCategory ? 'Subcategory of ' + category.parentCategory.name : 'Main Category' %>
+                </td>
+            </tr>
+            <% }); %>
+        <% } %>
+    </table>
+    
+    <% if (parentCategories && parentCategories.length > 0) { %>
+    <table border="1" style="margin: 20px 0; width: 100%;">
+        <tr>
+            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">
+                Main Categories with Subcategories
+            </td>
+        </tr>
+        <% parentCategories.forEach(parent => { %>
+        <tr>
+            <td style="padding: 15px; width: 200px;">
+                <strong><a href="/user/categories/<%= parent._id %>"><%= parent.name %></a></strong>
+            </td>
+            <td style="padding: 15px;">
+                <% if (parent.subcategories && parent.subcategories.length > 0) { %>
+                    Subcategories: 
+                    <% parent.subcategories.forEach((sub, index) => { %>
+                        <a href="/user/categories/<%= sub._id %>"><%= sub.name %></a><%= index < parent.subcategories.length - 1 ? ', ' : '' %>
+                    <% }); %>
+                <% } else { %>
+                    No subcategories
+                <% } %>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+    <% } %>
+</body>
+</html>
